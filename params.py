@@ -7,18 +7,18 @@ from config_manager import get_config
 def get_param(known=None):
     args = argparse.ArgumentParser()
     
-    args.add_argument('--name', type=str, required=True)
+    args.add_argument('--name', type=str, default="test_name")
 
     args.add_argument('--gpus', type=str, default='-1')
     args.add_argument('--resume', action='store_true')    
-    args.add_argument('--abspath', type=str, default='./')
+    args.add_argument('--abspath', type=str, default='D:/DCASE/Assets/Dataset/seld_features_labels/')
     args.add_argument('--config_mode', type=str, default='')
-    args.add_argument('--doa_loss', type=str, default='MSE', 
+    args.add_argument('--doa_loss', type=str, default='MMSE', 
                       choices=['MAE', 'MSE', 'MSLE', 'MMSE'])
-    args.add_argument('--model', type=str, default='seldnet')
-    args.add_argument('--model_config', type=str, default='')
-    args.add_argument('--output_path', type=str, default='./output')
-    args.add_argument('--ans_path', type=str, default='/seld-dcase2021/foa_dev_raw/raw_and_label/foa_dev_raw/metadata_dev/')
+    args.add_argument('--model', type=str, default='conv_temporal')
+    args.add_argument('--model_config', type=str, default='SS5')
+    args.add_argument('--output_path', type=str, default='D:\DCASE\Assets\Output')
+    args.add_argument('--ans_path', type=str, default='D:/DCASE/Assets/Dataset/metadata_dev/')
     
 
     # training

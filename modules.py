@@ -12,6 +12,30 @@ Use only custom layers or predefined
 """
 
 """            STAGES            """
+
+def simple_conv_block(model_config: dict):
+    # mandatory parameters
+    filters = model_config['filters']
+    pool_size = model_config['pool_size']
+    dropout_rate = model_config.get('dropout_rate', 0.)
+    kernel_regularizer = tf.keras.regularizers.l1_l2(
+        **model_config.get('kernel_regularizer', {'l1': 0., 'l2': 0.}))
+    if len(filters) == 0:
+        filters = filters * len(pool_size)
+    elif len(filters) != len(pool_size):
+        raise ValueError("len of filters and pool_size do not match")
+    
+    def conv_block(inputs):
+        x = inputs
+        for i in range(len(filters)):
+            x = conv2d_bn(filters[i], kernel_size=3, 
+                          kernel_regularizer=kernel_regularizer)(x)
+            x = MaxPooling2D(pool_size=pool_size[i])(x)
+            x = Dropout(dropout_rate)(x)
+        return x
+    return conv_block
+
+
 def mother_stage(model_config: dict):
     '''
     essential configs
@@ -443,11 +467,16 @@ def conformer_encoder_block(model_config: dict):
         x = x + ffn_factor*ffn
 
         # Positional Encoding
+        testEncoding = 0
         if pos_encoding in ['basic','rff']:
             encoding = pos_encoding_(x.shape)(x)
+            testEncoding = encoding
 
-        if pos_mode == 'absolute':
-            x = x + encoding
+        if pos_mode == 'absolute' and pos_encoding in ['basic','rff']:
+            x = x + pos_encoding_(x.shape)(x)
+
+        elif pos_mode == 'absolute':
+             x = x + testEncoding
 
         # Multi Head Self Attention module
         attn = LayerNormalization()(x)

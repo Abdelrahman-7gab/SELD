@@ -27,7 +27,7 @@ class DataLoaderTest(tf.test.TestCase):
 
     def test_load_seldnet_data(self):
         #TODO: change real files to temp files
-        default_path = '/media/data1/datasets/DCASE2020/feat_label/'
+        default_path = 'D:/DCASE/Assets/Dataset/seld_features_labels_2/DCASE2021/feat_label/'
         feat_path = os.path.join(default_path,
                                  'foa_dev_norm')
         label_path = os.path.join(default_path,

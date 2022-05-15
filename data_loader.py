@@ -159,7 +159,7 @@ def seldnet_data_to_dataloader(features: [list, tuple],
         batch_size = total_length // label_window_size
     dataset = data_loader(dataset, batch_size=batch_size, 
             loop_time=loop_time if train else 1, **kwargs)
-    
+
     if train:
         if shuffle_size is None:
             shuffle_size = n_samples // batch_size
@@ -356,7 +356,7 @@ if __name__ == '__main__':
     import time
     from transforms import *
 
-    path = '/media/data1/datasets/DCASE2020/feat_label/'
+    path = 'D:/DCASE/Assets/Dataset/seld_features_labels/DCASE2021/feat_label/'
     x, y = load_seldnet_data(os.path.join(path, 'foa_dev_norm'),
                              os.path.join(path, 'foa_dev_label'),
                              mode='val')

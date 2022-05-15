@@ -62,7 +62,7 @@ if __name__ == '__main__':
     CLASS_WISE_EVAL = False
 
     # loading data
-    path = '/datasets/datasets/DCASE2021/feat_label/'
+    path = 'D:/DCASE/Assets/Dataset/seld_features_labels_2/'
     test_xs, test_ys = load_seldnet_data(
         os.path.join(path, 'foa_dev_norm'),
         os.path.join(path, 'foa_dev_label'),
