@@ -24,6 +24,6 @@ class UtilsTest(tf.test.TestCase):
 
 
 if __name__ == '__main__':
-    os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
     tf.test.main()
 

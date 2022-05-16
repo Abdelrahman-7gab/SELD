@@ -84,7 +84,7 @@ if __name__ == '__main__':
     mode = 'test'
     submit = True
     # DATASET PATH
-    path = '/home/iris/datasets/DCASE2021/feat_label'
+    path = 'D:/DCASE/Assets/Dataset/seld_features_labels/DCASE2021/feat_label'
 
     if submit:
         test_xs = load_test_data(os.path.join(path, 'foa_eval_norm'), 64)
@@ -100,27 +100,15 @@ if __name__ == '__main__':
     input_shape = [300, 64, 7]
     n_classes = 12
     saved_models = [
-        ['/home/iris/weights_and_configs/SS5.json',
-         '/home/iris/weights_and_configs/conv_temporal_SS5_MMSE_best_agc0.02_smooth0.2_v_0/'
-         'SWA_best_0.30253.hdf5'],
-        ['/home/iris/weights_and_configs/SS5.json',
-         '/home/iris/weights_and_configs/conv_temporal_SS5_MMSE_best_agc0.02_v_0/'
-         'SWA_best_0.31268.hdf5'],
-        #['/home/iris/weights_and_configs/SS5.json',
-        # '/home/iris/weights_and_configs/conv_temporal_SS5_MSE_und+_no_tm_smt02_l21e-4_decay05_v_0/'
-        # 'SWA_best_0.31787.hdf5'],
-        ['/home/iris/weights_and_configs/SS5_t.json',
-         '/home/iris/weights_and_configs/conv_temporal_SS5_t_MMSE_und+_no_tm_smt02_l21e-4_decay05_v_0/'
-         'SWA_best_0.32151.hdf5'],
-        ['/home/iris/weights_and_configs/SS5_t.json',
-         '/home/iris/weights_and_configs/conv_temporal_SS5_t_MMSE_und+_no_tm_smt02_l21e-4_decay025_SWA100_80_v_0/'
-         'SWA_best_0.32157.hdf5'],
+        ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_test_name_v_0/'
+         'bestscore_0.8757287859916687.hdf5'],
     ]
 
     # making answer
-    output_path = './make_answer_4_1/' #output path
+    output_path = 'D:/DCASE/Assets/Results' #output path
     if not(submit):
-        ans_path = '/home/iris/datasets/DCASE2021/metadata_dev/'
+        ans_path = 'D:/DCASE/Assets/Dataset/metadata_dev'
     
     outs = []
     for model in saved_models:

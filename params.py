@@ -9,7 +9,7 @@ def get_param(known=None):
     
     args.add_argument('--name', type=str, default="test_name")
 
-    args.add_argument('--gpus', type=str, default='-1')
+    args.add_argument('--gpus', type=str, default='0')
     args.add_argument('--resume', action='store_true')    
     args.add_argument('--abspath', type=str, default='D:/DCASE/Assets/Dataset/seld_features_labels/')
     args.add_argument('--config_mode', type=str, default='')
@@ -26,7 +26,7 @@ def get_param(known=None):
     args.add_argument('--decay', type=float, default=0.5)
     args.add_argument('--batch', type=int, default=256)
     args.add_argument('--agc', type=bool, default=False)
-    args.add_argument('--epoch', type=int, default=1000)
+    args.add_argument('--epoch', type=int, default=5)
     args.add_argument('--loss_weight', type=str, default='1,1000')
     args.add_argument('--lr_patience', type=int, default=80, 
                       help='learning rate decay patience for plateau')
