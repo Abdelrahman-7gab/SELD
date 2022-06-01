@@ -20,7 +20,7 @@ and I suggest extracting features twice once for the development dataset as usua
 and once where you rename the metadata_eval to metadata_dev and the folder inside it to dev_test
 then use the extractor a second time. this way you'll be able to extract labels and features for both the development and the evaluation dataset.)
 
-3. run pip install -r requirements.txt (file will be updated.)
+3. create a new conda environment with the requirements.txt file
 
 4. run trainv2.py with arguments. You should set 'abspath' to the directory preprocessed datasets are located.
 
