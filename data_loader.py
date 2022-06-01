@@ -7,6 +7,8 @@ from multiprocessing import cpu_count
 from tqdm import tqdm
 import tensorflow_io as tfio
 import joblib
+from random_eraser import eraser,mixup
+
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
 
@@ -16,6 +18,7 @@ def data_loader(dataset,
                 batch_transforms=None,
                 deterministic=False,
                 loop_time=None,
+                extras=False,
                 batch_size=32) -> tf.data.Dataset:
     '''
     INPUT
@@ -43,12 +46,22 @@ def data_loader(dataset,
             dataset = dataset.map(
                 op, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
 
-        return dataset
+        return dataset 
     
     dataset = apply_ops(dataset, preprocessing)
     dataset = dataset.cache()
     dataset = dataset.repeat(loop_time)
     dataset = apply_ops(dataset, sample_transforms)
+
+    if(extras):
+        print("extra augmentation is on")
+        cutoutDS = dataset.map(eraser, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
+        # mixupDS = dataset.map(mixup, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
+        # dataset = dataset.concatenate(mixupDS)
+        dataset = dataset.concatenate(cutoutDS)
+        dataset = dataset.shuffle(2400)
+
+    
     dataset = dataset.batch(batch_size, drop_remainder=False)
     dataset = apply_ops(dataset, batch_transforms)
 
@@ -159,7 +172,7 @@ def seldnet_data_to_dataloader(features: [list, tuple],
         batch_size = total_length // label_window_size
     dataset = data_loader(dataset, batch_size=batch_size, 
             loop_time=loop_time if train else 1, **kwargs)
-    
+
     if train:
         if shuffle_size is None:
             shuffle_size = n_samples // batch_size
@@ -356,7 +369,7 @@ if __name__ == '__main__':
     import time
     from transforms import *
 
-    path = '/media/data1/datasets/DCASE2020/feat_label/'
+    path = 'D:/DCASE/Assets/Dataset/seld_features_labels/DCASE2021/feat_label/'
     x, y = load_seldnet_data(os.path.join(path, 'foa_dev_norm'),
                              os.path.join(path, 'foa_dev_label'),
                              mode='val')

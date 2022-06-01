@@ -54,7 +54,7 @@ def extract_features(wav: torch.Tensor,
                      sample_rate,
                      mode='foa',
                      n_mels=64,
-                     **kwargs) -> np.ndarray:
+                     **kwargs) -> np.ndarray:           
     device = get_device()
     melscale = torchaudio.transforms.MelScale(
         n_mels=n_mels, sample_rate=sample_rate).to(device)
@@ -282,8 +282,8 @@ if __name__ == '__main__':
     # How to use
     # Extracting Features and Labels
     mode = config.mode
-    abspath = '/media/data1/datasets/DCASE2020' if os.path.exists('/media/data1/datasets') else '/root/datasets/DCASE2020'
-    FEATURE_PATH = os.path.join(abspath, f'{mode}_dev')
+    abspath = 'D:/DCASE/Assets/Dataset'
+    FEATURE_PATH = os.path.join(abspath, f'{mode}_dev/dev-test')
     LABEL_PATH = os.path.join(abspath, 'metadata_dev')
 
     # should 

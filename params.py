@@ -7,18 +7,18 @@ from config_manager import get_config
 def get_param(known=None):
     args = argparse.ArgumentParser()
     
-    args.add_argument('--name', type=str, required=True)
+    args.add_argument('--name', type=str, default="mixup")
 
-    args.add_argument('--gpus', type=str, default='-1')
+    args.add_argument('--gpus', type=str, default='0')
     args.add_argument('--resume', action='store_true')    
-    args.add_argument('--abspath', type=str, default='./')
+    args.add_argument('--abspath', type=str, default='D:/DCASE/Assets/Dataset/seld_features_labels/')
     args.add_argument('--config_mode', type=str, default='')
-    args.add_argument('--doa_loss', type=str, default='MSE', 
+    args.add_argument('--doa_loss', type=str, default='MMSE', 
                       choices=['MAE', 'MSE', 'MSLE', 'MMSE'])
-    args.add_argument('--model', type=str, default='seldnet')
-    args.add_argument('--model_config', type=str, default='')
-    args.add_argument('--output_path', type=str, default='./output')
-    args.add_argument('--ans_path', type=str, default='/seld-dcase2021/foa_dev_raw/raw_and_label/foa_dev_raw/metadata_dev/')
+    args.add_argument('--model', type=str, default='conv_temporal')
+    args.add_argument('--model_config', type=str, default='SS5')
+    args.add_argument('--output_path', type=str, default='D:\DCASE\Assets\Output')
+    args.add_argument('--ans_path', type=str, default='D:/DCASE/Assets/Dataset/metadata_dev/')
     
 
     # training
@@ -30,14 +30,14 @@ def get_param(known=None):
     args.add_argument('--loss_weight', type=str, default='1,1000')
     args.add_argument('--lr_patience', type=int, default=80, 
                       help='learning rate decay patience for plateau')
-    args.add_argument('--patience', type=int, default=100, 
+    args.add_argument('--patience', type=int, default=50, 
                       help='early stop patience')
     args.add_argument('--freq_mask_size', type=int, default=16)
-    args.add_argument('--time_mask_size', type=int, default=24)
+    # args.add_argument('--time_mask_size', type=int, default=24)
     args.add_argument('--tfm_period', type=int, default=100)
-    args.add_argument('--use_acs', action='store_true')
-    args.add_argument('--use_tdm', action='store_true')
-    args.add_argument('--use_tfm', action='store_true')
+    args.add_argument('--use_acs', default=True)
+    args.add_argument('--use_tdm', default=False)
+    args.add_argument('--use_tfm', default=True)
     args.add_argument('--loop_time', type=int, default=5, 
                       help='times of train dataset iter for an epoch')
     args.add_argument('--tdm_epoch', type=int, default=2,

@@ -84,10 +84,17 @@ if __name__ == '__main__':
     mode = 'test'
     submit = True
     # DATASET PATH
-    path = '/home/iris/datasets/DCASE2021/feat_label'
+    path = 'D:/DCASE/Assets/Dataset/seld_features_labels/DCASE2021/feat_label'
+    #dataset should be either development or evaluation
+    dataset = "development"
+
+    if(dataset == "development"):
+        features_folder = 'foad_dev_norm'
+    elif(dataset == "evaluation"):
+        features_folder = 'foad_eval_norm'   
 
     if submit:
-        test_xs = load_test_data(os.path.join(path, 'foa_eval_norm'), 64)
+        test_xs = load_test_data(os.path.join(path,features_folder), 64)
     else:
         test_xs, test_ys = load_seldnet_data(
             os.path.join(path, 'foa_dev_norm'),
@@ -100,27 +107,24 @@ if __name__ == '__main__':
     input_shape = [300, 64, 7]
     n_classes = 12
     saved_models = [
-        ['/home/iris/weights_and_configs/SS5.json',
-         '/home/iris/weights_and_configs/conv_temporal_SS5_MMSE_best_agc0.02_smooth0.2_v_0/'
-         'SWA_best_0.30253.hdf5'],
-        ['/home/iris/weights_and_configs/SS5.json',
-         '/home/iris/weights_and_configs/conv_temporal_SS5_MMSE_best_agc0.02_v_0/'
-         'SWA_best_0.31268.hdf5'],
-        #['/home/iris/weights_and_configs/SS5.json',
-        # '/home/iris/weights_and_configs/conv_temporal_SS5_MSE_und+_no_tm_smt02_l21e-4_decay05_v_0/'
-        # 'SWA_best_0.31787.hdf5'],
-        ['/home/iris/weights_and_configs/SS5_t.json',
-         '/home/iris/weights_and_configs/conv_temporal_SS5_t_MMSE_und+_no_tm_smt02_l21e-4_decay05_v_0/'
-         'SWA_best_0.32151.hdf5'],
-        ['/home/iris/weights_and_configs/SS5_t.json',
-         '/home/iris/weights_and_configs/conv_temporal_SS5_t_MMSE_und+_no_tm_smt02_l21e-4_decay025_SWA100_80_v_0/'
-         'SWA_best_0.32157.hdf5'],
+        # ['D:/DCASE/Code/SELD/model_config/SS5.json',
+        #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_AuthorModel_v_0/'
+        #  'bestscore_0.4268316626548767.hdf5'],
+        #   ['D:/DCASE/Code/SELD/model_config/SS5.json',
+        #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_AuthorModel_v_0/'
+        #  'SWA_best_0.40554.hdf5'],
+          ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
+         'bestscore_0.43639206886291504.hdf5'],
+          ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
+         'SWA_best_0.31828.hdf5'],
     ]
 
     # making answer
-    output_path = './make_answer_4_1/' #output path
+    output_path = 'D:/DCASE/Assets/Results' #output path
     if not(submit):
-        ans_path = '/home/iris/datasets/DCASE2021/metadata_dev/'
+        ans_path = 'D:/DCASE/Assets/Dataset/metadata_dev'
     
     outs = []
     for model in saved_models:
@@ -150,7 +154,7 @@ if __name__ == '__main__':
         label_list = [os.path.split(os.path.splitext(f)[0])[1] for f in label_list if int(f[f.rfind(os.path.sep)+5]) in splits[mode]] 
         seld_ = SELDMetrics_()
     else:
-        label_list = sorted(glob(os.path.join(path, 'foa_eval_norm') + '/*'))
+        label_list = sorted(glob(os.path.join(path, features_folder) + '/*'))
         label_list = [os.path.split(os.path.splitext(f)[0])[1] for f in label_list] 
     for i, preds in tqdm(enumerate(outputs)):
         answer_class = preds[0] > [0.35, 0.35, 0.3, 0.4, 0.65, 0.6, 0.45, 0.55, 0.3, 0.3, 0.45, 0.3] # [0.35, 0.35, 0.3, 0.4, 0.66, 0.65, 0.45, 0.55, 0.3, 0.3, 0.45, 0.3]
