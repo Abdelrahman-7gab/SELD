@@ -40,7 +40,11 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 in the script you that you want to not use the GPU.
 
-I added cutout data augmentation to the dataset doubling the dataset size as I believed that since the model was perfoming better on the train splits 
+I added cutout data augmentation to the dataset doubling the dataset size
+the logic of the cutout algorithm can be found in the file:
+[random_eraser.py](https://github.com/Abdelrahman-7gab/SELD/blob/bachelor/random_eraser.py)
+
+as I believed that since the model was perfoming better on the train splits 
 than the val and test splits that it's overfitting to some extent and started to memorize the train set.
 this resulted in 4-5% better scores on my machine.
 this change is apparent in data_loader.py in the next chunk of code:
