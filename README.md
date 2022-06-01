@@ -12,7 +12,9 @@ in my experience the feature extractor in the code is not working properly and t
 (since the batch feature extractor linked above was made before the dcase competition it doesn't encounter for the metadata of the evaluation dataset 
 (metadata_eval) that's why I suggest running only dev mode in the batch_feature_extracion.py line 6 should be :
 
+```python
 process_str = 'dev'
+```
 
 and I suggest extracting features twice once for the development dataset as usual
 and once where you rename the metadata_eval to metadata_dev and the folder inside it to dev_test
@@ -27,7 +29,16 @@ You should only train on the development dataset using the splits included in th
 ### My Contribution and how to disable it.
 The code belongs to the original authors and I only changed minor things to get better results and or better training performance.
 I made the model utilize my GPU instead of only cpu which lead to a much faster training time 
-however you can change that by changing the  os.environ['CUDA_VISIBLE_DEVICES'] from '0' to '-1' in the script you like to not use the gpu.
+however you can change that by changing the 
+```python
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+```
+to 
+```python
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+```
+
+in the script you that you want to not use the GPU.
 
 I added cutout data augmentation to the dataset doubling the dataset size as I believed that since the model was perfoming better on the train splits 
 than the val and test splits that it's overfitting to some extent and started to memorize the train set.
@@ -45,7 +56,15 @@ this change is apparent in data_loader.py in the next chunk of code:
 ```
         
 which you can comment out to remove the extra cutout augmentation.
-or you can also change line 157 in trainv2.py from extras= mode == 'train' to extras = false.
+or you can also change line 157 in trainv2.py from 
+```python
+extras= mode == 'train'
+```
+to
+```python
+extras= false
+```
+
 and this should give you the same result.
 
 ### How to compute results.
