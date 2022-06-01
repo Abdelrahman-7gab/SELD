@@ -25,7 +25,7 @@ then use the extractor a second time. this way you'll be able to extract labels 
 You should only train on the development dataset using the splits included in the code. and not the evaluation dataset. 
 
 ### My Contribution and how to disable it.
-The code belongs to the original authors and I only changed minor things to get better resutls and or better training performance.
+The code belongs to the original authors and I only changed minor things to get better results and or better training performance.
 I made the model utilize my GPU instead of only cpu which lead to a much faster training time 
 however you can change that by changing the  os.environ['CUDA_VISIBLE_DEVICES'] from '0' to '-1' in the script you like to not use the gpu.
 
@@ -33,7 +33,8 @@ I added cutout data augmentation to the dataset doubling the dataset size as I b
 than the val and test splits that it's overfitting to some extent and started to memorize the train set.
 this resulted in 4-5% better scores on my machine.
 this change is apparent in data_loader.py in the next chunk of code:
-
+        
+```python
   if(extras):
         print("extra augmentation is on")
         cutoutDS = dataset.map(eraser, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
@@ -41,12 +42,13 @@ this change is apparent in data_loader.py in the next chunk of code:
         # dataset = dataset.concatenate(mixupDS)
         dataset = dataset.concatenate(cutoutDS)
         dataset = dataset.shuffle(2400)
+```
         
 which you can comment out to remove the extra cutout augmentation.
 or you can also change line 157 in trainv2.py from extras= mode == 'train' to extras = false.
 and this should give you the same result.
 
-###How to compute results.
+### How to compute results.
 use make_answer.py after training your model after changing the path to the location of your trained model.
 make sure to select either development or evaluation dataset in the code before running the file.
 this will output predections in the format of csv in the output_path of your choice.
