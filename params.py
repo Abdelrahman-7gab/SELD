@@ -30,7 +30,7 @@ def get_param(known=None):
     args.add_argument('--loss_weight', type=str, default='1,1000')
     args.add_argument('--lr_patience', type=int, default=80, 
                       help='learning rate decay patience for plateau')
-    args.add_argument('--patience', type=int, default=20, 
+    args.add_argument('--patience', type=int, default=50, 
                       help='early stop patience')
     args.add_argument('--freq_mask_size', type=int, default=16)
     # args.add_argument('--time_mask_size', type=int, default=24)
