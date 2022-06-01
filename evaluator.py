@@ -59,10 +59,11 @@ def load_conv_temporal_model(input_shape, model_config, weights):
 
 
 if __name__ == '__main__':
+    os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
     CLASS_WISE_EVAL = False
 
     # loading data
-    path = 'D:/DCASE/Assets/Dataset/seld_features_labels/'
+    path = 'D:/DCASE/Assets/Dataset/seld_features_labels_eval/'
     test_xs, test_ys = load_seldnet_data(
         os.path.join(path, 'foa_dev_norm'),
         os.path.join(path, 'foa_dev_label'),
@@ -74,15 +75,18 @@ if __name__ == '__main__':
     input_shape = [300, 64, 7]
     n_classes = 12
     saved_models = [
-        ['model_config/SS3.json',
-         'saved_model/conv_temporal_SS3_MMSE_SS3_agc_swa80_2_v_0/'
-         'SWA_best_0.34428465366363525.hdf5'],
-        ['model_config/SS5.json',
-         'saved_model/conv_temporal_SS5_MMSE_SS5_agc_smt01_mask_v_0/'
-         'SWA_best_0.34466397762298584.hdf5'],
-        ['model_config/SS5.json',
-         'saved_model/conv_temporal_SS5_MSE_SS5_smt01_l21e-4_v_0/'
-         'SWA_best_0.34446.hdf5'],
+        # ['D:/DCASE/Code/SELD/model_config/SS5.json',
+        #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_AuthorModel_v_0/'
+        #  'bestscore_0.4268316626548767.hdf5'],
+        #   ['D:/DCASE/Code/SELD/model_config/SS5.json',
+        #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_AuthorModel_v_0/'
+        #  'SWA_best_0.40554.hdf5'],
+          ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
+         'bestscore_0.43639206886291504.hdf5'],
+          ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
+         'SWA_best_0.31828.hdf5'],
     ]
 
     # predictions

@@ -7,7 +7,7 @@ from config_manager import get_config
 def get_param(known=None):
     args = argparse.ArgumentParser()
     
-    args.add_argument('--name', type=str, default="test_name")
+    args.add_argument('--name', type=str, default="mixup")
 
     args.add_argument('--gpus', type=str, default='0')
     args.add_argument('--resume', action='store_true')    
@@ -26,18 +26,18 @@ def get_param(known=None):
     args.add_argument('--decay', type=float, default=0.5)
     args.add_argument('--batch', type=int, default=256)
     args.add_argument('--agc', type=bool, default=False)
-    args.add_argument('--epoch', type=int, default=5)
+    args.add_argument('--epoch', type=int, default=1000)
     args.add_argument('--loss_weight', type=str, default='1,1000')
     args.add_argument('--lr_patience', type=int, default=80, 
                       help='learning rate decay patience for plateau')
-    args.add_argument('--patience', type=int, default=100, 
+    args.add_argument('--patience', type=int, default=20, 
                       help='early stop patience')
     args.add_argument('--freq_mask_size', type=int, default=16)
-    args.add_argument('--time_mask_size', type=int, default=24)
+    # args.add_argument('--time_mask_size', type=int, default=24)
     args.add_argument('--tfm_period', type=int, default=100)
-    args.add_argument('--use_acs', action='store_true')
-    args.add_argument('--use_tdm', action='store_true')
-    args.add_argument('--use_tfm', action='store_true')
+    args.add_argument('--use_acs', default=True)
+    args.add_argument('--use_tdm', default=False)
+    args.add_argument('--use_tfm', default=True)
     args.add_argument('--loop_time', type=int, default=5, 
                       help='times of train dataset iter for an epoch')
     args.add_argument('--tdm_epoch', type=int, default=2,

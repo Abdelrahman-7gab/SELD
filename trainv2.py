@@ -1,5 +1,6 @@
 import numpy as np
 import os
+from scipy import rand
 import tensorflow as tf
 import time
 from collections import OrderedDict
@@ -18,6 +19,7 @@ from swa import SWA
 from transforms import *
 from utils import *
 from SELD_evaluation_metrics import SELDMetrics_
+from random_eraser import eraser
 
 
 def generate_trainstep(sed_loss, doa_loss, loss_weights, label_smoothing=0.):
@@ -135,6 +137,7 @@ def get_dataset(config, mode: str = 'train'):
             random_ups_and_downs,
             lambda x, y: (mask(x, axis=-3, max_mask_size=6, n_mask=10), y),
             lambda x, y: (mask(x, axis=-2, max_mask_size=8, n_mask=6), y),
+            # lambda x, y: (eraser(x),y),
             # lambda x, y: (mask(x, axis=-3, max_mask_size=12, n_mask=6), y),
             # lambda x, y: (mask(x, axis=-2, max_mask_size=8, n_mask=6), y),
         ]
@@ -150,7 +153,8 @@ def get_dataset(config, mode: str = 'train'):
         label_window_size=60,
         batch_size=config.batch,
         sample_transforms=sample_transforms,
-        loop_time=config.loop_time
+        loop_time=config.loop_time,
+        extras= mode == 'train',
     )
     return dataset
 
@@ -238,6 +242,7 @@ def generate_evaluate_fn(test_xs, test_ys, evaluator, write_path, ans_path, batc
 
 
 def main(config):
+    os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
     config, model_config = config[0], config[1]
 
     # HyperParameters
@@ -322,10 +327,11 @@ def main(config):
         test_xs, test_ys, evaluator, config.output_path, config.ans_path, config.batch*4, writer=writer)
 
     for epoch in range(config.epoch):
+        print(f'Currently at epoch {epoch}')
         if epoch == swa_start_epoch:
             tf.keras.backend.set_value(optimizer.lr, config.lr * 0.5)
 
-        if epoch % 10 == 0:
+        if epoch % 10 == 0 and epoch != 0:
             evaluate_fn(model, epoch)
 
         # train loop
@@ -344,6 +350,7 @@ def main(config):
                 model, 
                 os.path.join(model_path, f'bestscore_{best_score}.hdf5'), 
                 include_optimizer=False)
+            print("Saved new best model")   
         else:
             '''
             if lr_decay_patience == config.lr_patience and config.decay != 1:

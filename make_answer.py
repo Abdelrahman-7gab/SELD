@@ -85,9 +85,16 @@ if __name__ == '__main__':
     submit = True
     # DATASET PATH
     path = 'D:/DCASE/Assets/Dataset/seld_features_labels/DCASE2021/feat_label'
+    #dataset should be either development or evaluation
+    dataset = "development"
+
+    if(dataset == "development"):
+        features_folder = 'foad_dev_norm'
+    elif(dataset == "evaluation"):
+        features_folder = 'foad_eval_norm'   
 
     if submit:
-        test_xs = load_test_data(os.path.join(path, 'foa_eval_norm'), 64)
+        test_xs = load_test_data(os.path.join(path,features_folder), 64)
     else:
         test_xs, test_ys = load_seldnet_data(
             os.path.join(path, 'foa_dev_norm'),
@@ -100,9 +107,18 @@ if __name__ == '__main__':
     input_shape = [300, 64, 7]
     n_classes = 12
     saved_models = [
-        ['D:/DCASE/Code/SELD/model_config/SS5.json',
-         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_test_name_v_0/'
-         'bestscore_0.8757287859916687.hdf5'],
+        # ['D:/DCASE/Code/SELD/model_config/SS5.json',
+        #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_AuthorModel_v_0/'
+        #  'bestscore_0.4268316626548767.hdf5'],
+        #   ['D:/DCASE/Code/SELD/model_config/SS5.json',
+        #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_AuthorModel_v_0/'
+        #  'SWA_best_0.40554.hdf5'],
+          ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
+         'bestscore_0.43639206886291504.hdf5'],
+          ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
+         'SWA_best_0.31828.hdf5'],
     ]
 
     # making answer
@@ -138,7 +154,7 @@ if __name__ == '__main__':
         label_list = [os.path.split(os.path.splitext(f)[0])[1] for f in label_list if int(f[f.rfind(os.path.sep)+5]) in splits[mode]] 
         seld_ = SELDMetrics_()
     else:
-        label_list = sorted(glob(os.path.join(path, 'foa_eval_norm') + '/*'))
+        label_list = sorted(glob(os.path.join(path, features_folder) + '/*'))
         label_list = [os.path.split(os.path.splitext(f)[0])[1] for f in label_list] 
     for i, preds in tqdm(enumerate(outputs)):
         answer_class = preds[0] > [0.35, 0.35, 0.3, 0.4, 0.65, 0.6, 0.45, 0.55, 0.3, 0.3, 0.45, 0.3] # [0.35, 0.35, 0.3, 0.4, 0.66, 0.65, 0.45, 0.55, 0.3, 0.3, 0.45, 0.3]
