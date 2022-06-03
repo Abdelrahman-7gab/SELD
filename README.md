@@ -5,10 +5,13 @@
 
 1. Download Dataset from https://zenodo.org/record/5476980 
 (make sure the dataset version is 1.2 as this is the version that provides metadata for the evaluation dataset)
+
 2. Preprocess Data with batch_feature_extracion.py in https://github.com/sharathadavanne/seld-dcase2021
+the extracted features and labels should be in folders with these names:
+seld_features_labels/DCASE2021/feat_label
+
 
 in my experience the feature extractor in the code is not working properly and the code is better used with the above extractor.
-
 (since the batch feature extractor linked above was made before the dcase competition it doesn't encounter for the metadata of the evaluation dataset 
 (metadata_eval) that's why I suggest running only dev mode in the batch_feature_extracion.py line 6 should be :
 
