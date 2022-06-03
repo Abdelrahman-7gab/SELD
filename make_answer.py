@@ -89,9 +89,9 @@ if __name__ == '__main__':
     dataset = "development"
 
     if(dataset == "development"):
-        features_folder = 'foad_dev_norm'
+        features_folder = 'foa_dev_norm'
     elif(dataset == "evaluation"):
-        features_folder = 'foad_eval_norm'   
+        features_folder = 'foa_eval_norm'   
 
     if submit:
         test_xs = load_test_data(os.path.join(path,features_folder), 64)
