@@ -22,7 +22,9 @@ then use the extractor a second time. this way you'll be able to extract labels 
 
 3. create a new conda environment with the requirements.txt file
 
-4. run trainv2.py with arguments. You should set 'abspath' to the directory preprocessed datasets are located.
+4. run params.py to generate a config files with the params of your choice. (the default are the params I used.) make sure a config file with the same name does not already exist.
+
+5. run trainv2.py with arguments. You should set 'abspath' to the directory preprocessed datasets are located.
 
 You should only train on the development dataset using the splits included in the code. and not the evaluation dataset. 
 
@@ -53,8 +55,6 @@ this change is apparent in data_loader.py in the next chunk of code:
   if(extras):
         print("extra augmentation is on")
         cutoutDS = dataset.map(eraser, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
-        # mixupDS = dataset.map(mixup, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
-        # dataset = dataset.concatenate(mixupDS)
         dataset = dataset.concatenate(cutoutDS)
         dataset = dataset.shuffle(2400)
 ```

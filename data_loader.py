@@ -56,8 +56,6 @@ def data_loader(dataset,
     if(extras):
         print("extra augmentation is on")
         cutoutDS = dataset.map(eraser, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
-        # mixupDS = dataset.map(mixup, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
-        # dataset = dataset.concatenate(mixupDS)
         dataset = dataset.concatenate(cutoutDS)
         dataset = dataset.shuffle(2400)
 

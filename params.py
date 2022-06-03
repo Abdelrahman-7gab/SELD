@@ -7,7 +7,7 @@ from config_manager import get_config
 def get_param(known=None):
     args = argparse.ArgumentParser()
     
-    args.add_argument('--name', type=str, default="mixup")
+    args.add_argument('--name', type=str, default="cutout36")
 
     args.add_argument('--gpus', type=str, default='0')
     args.add_argument('--resume', action='store_true')    
