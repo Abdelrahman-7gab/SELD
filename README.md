@@ -47,7 +47,7 @@ in the script you that you want to not use the GPU.
 
 I added cutout data augmentation to the dataset doubling the dataset size
 the logic of the cutout algorithm can be found in the file:
-[random_eraser.py](https://github.com/Abdelrahman-7gab/SELD/blob/bachelor/random_eraser.py)
+[extra_augmentations.py](https://github.com/Abdelrahman-7gab/SELD/blob/mixup-trials/extra_augmentations.py)
 
 as I believed that since the model was perfoming better on the train splits 
 than the val and test splits that it's overfitting to some extent and started to memorize the train set.
