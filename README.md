@@ -66,7 +66,12 @@ the logic of the cutout and the mixup algorithms can be found in the file:
 
 as I believed that since the model was perfoming better on the train splits 
 than the val and test splits that it's overfitting to some extent and started to memorize the train set.
-this resulted in 10% better scores on my machine on the evaluation dataset and 2.8% on the development dataset.
+
+I did not get exact results like the authors and they also provide this warning:
+![image](https://user-images.githubusercontent.com/63824808/172371360-77a1abd4-59b1-433e-a916-aa50536d98b4.png)
+so the results on my machine without any changes are the baseline for the improvements listed.
+
+the extra data augmentations resulted in 10% better scores on my machine on the evaluation dataset and 2.8% on the development dataset.
 
 ![image](https://user-images.githubusercontent.com/63824808/172370656-e9d51e2b-9cc7-4d1e-a34f-f8356978a947.png)
 
