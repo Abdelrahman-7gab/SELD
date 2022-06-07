@@ -11,6 +11,7 @@
 the extracted features and labels should be in folders with these names:
 seld_features_labels/DCASE2021/feat_label
 
+```bash
 ├───seld_features_labels
 │   └───DCASE2021
 │       └───feat_label
@@ -19,6 +20,7 @@ seld_features_labels/DCASE2021/feat_label
 │           ├───foa_dev_norm
 │           ├───foa_eval
 │           └───foa_eval_norm
+```
 
 
 in my experience the feature extractor in the code is not working properly and the code is better used with the above extractor.
