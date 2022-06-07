@@ -11,18 +11,14 @@
 the extracted features and labels should be in folders with these names:
 seld_features_labels/DCASE2021/feat_label
 
-├── ...
-├── seld_features_labels              
-│   ├── DCASE2021             
-│            └── feat_label
-│                        ├── foa_dev
-│                        ├── foa_dev_label
-│                        ├── foa_dev_norm
-│                        ├── foa_eval
-│                        ├── foa_eval_norm
-│                        └── foa_wts     
-│                              
-└── 
+├───seld_features_labels
+│   └───DCASE2021
+│       └───feat_label
+│           ├───foa_dev
+│           ├───foa_dev_label
+│           ├───foa_dev_norm
+│           ├───foa_eval
+│           └───foa_eval_norm
 
 
 in my experience the feature extractor in the code is not working properly and the code is better used with the above extractor.
@@ -64,11 +60,15 @@ in the script you that you want to not use the GPU.
 I added Mixup data augmentation however concatenated the resulted dataset to the original dataset doubling the dataset size and then
 applied cutout data augmentation with probability 50% to the dataset so that cutout will be applied to 50% of the dataset.
 the logic of the cutout and the mixup algorithms can be found in the file:
-[extra_augmentations.py](https://github.com/Abdelrahman-7gab/SELD/blob/mixup-trials/extra_augmentations.py)
+[extra_augmentations.py](https://github.com/Abdelrahman-7gab/SELD/blob/main/extra_augmentations.py)
 
 as I believed that since the model was perfoming better on the train splits 
 than the val and test splits that it's overfitting to some extent and started to memorize the train set.
 this resulted in 10% better scores on my machine on the evaluation dataset and 2.8% on the development dataset.
+
+![image](https://user-images.githubusercontent.com/63824808/172370656-e9d51e2b-9cc7-4d1e-a34f-f8356978a947.png)
+
+
 this change is apparent in data_loader.py in the next chunk of code:
         
 ```python
