@@ -60,8 +60,6 @@ def data_loader(dataset,
         mixUpDataset = datasetZipped.map(mixup, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
         dataset = dataset.concatenate(mixUpDataset)
         dataset = dataset.map(eraser, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
-        # dataset = dataset.concatenate(cutoutDS)
-        # dataset = dataset.shuffle(2400)
 
  
     dataset = dataset.repeat(loop_time)

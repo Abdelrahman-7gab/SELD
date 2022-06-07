@@ -120,8 +120,11 @@ if __name__ == '__main__':
         #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
         #  'SWA_best_0.31828.hdf5'],
              ['D:/DCASE/Code/SELD/model_config/SS5.json',
-         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_mixup-cutout-no-concat_v_0/'
-         '60epoch.hdf5'],
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_mixup-cutoutP-final_v_0/'
+         'bestscore_0.4229133725166321.hdf5'],
+            ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_mixup-cutoutP-final_v_0/'
+         'SWA_best_0.32020.hdf5'],
     ]
 
     # making answer
