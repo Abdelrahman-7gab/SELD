@@ -19,7 +19,6 @@ from swa import SWA
 from transforms import *
 from utils import *
 from SELD_evaluation_metrics import SELDMetrics_
-from random_eraser import eraser
 
 
 def generate_trainstep(sed_loss, doa_loss, loss_weights, label_smoothing=0.):
@@ -247,7 +246,7 @@ def main(config):
 
     # HyperParameters
     n_classes = 12
-    swa_start_epoch = 80
+    swa_start_epoch = 40
     swa_freq = 2
     kernel_regularizer = tf.keras.regularizers.l1_l2(l1=0, l2=0.001)
 
@@ -331,8 +330,9 @@ def main(config):
         if epoch == swa_start_epoch:
             tf.keras.backend.set_value(optimizer.lr, config.lr * 0.5)
 
-        if epoch % 10 == 0 and epoch != 0:
-            evaluate_fn(model, epoch)
+        # if epoch % 10 == 0 and epoch != 0:
+        #     evaluate_fn(model, epoch)
+
 
         # train loop
         train_iterloop(model, trainset, epoch, optimizer)

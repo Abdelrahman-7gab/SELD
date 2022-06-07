@@ -86,7 +86,7 @@ if __name__ == '__main__':
     # DATASET PATH
     path = 'D:/DCASE/Assets/Dataset/seld_features_labels/DCASE2021/feat_label'
     #dataset should be either development or evaluation
-    dataset = "development"
+    dataset = "evaluation"
 
     if(dataset == "development"):
         features_folder = 'foa_dev_norm'
@@ -113,12 +113,18 @@ if __name__ == '__main__':
         #   ['D:/DCASE/Code/SELD/model_config/SS5.json',
         #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_AuthorModel_v_0/'
         #  'SWA_best_0.40554.hdf5'],
-          ['D:/DCASE/Code/SELD/model_config/SS5.json',
-         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
-         'bestscore_0.43639206886291504.hdf5'],
-          ['D:/DCASE/Code/SELD/model_config/SS5.json',
-         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
-         'SWA_best_0.31828.hdf5'],
+        #   ['D:/DCASE/Code/SELD/model_config/SS5.json',
+        #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
+        #  'bestscore_0.43639206886291504.hdf5'],
+        #   ['D:/DCASE/Code/SELD/model_config/SS5.json',
+        #  'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_cutout36_v_0/'
+        #  'SWA_best_0.31828.hdf5'],
+             ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_mixup-cutoutP-final_v_0/'
+         'bestscore_0.4229133725166321.hdf5'],
+            ['D:/DCASE/Code/SELD/model_config/SS5.json',
+         'D:/DCASE/Code/SELD/saved_model/conv_temporal_SS5_MMSE_mixup-cutoutP-final_v_0/'
+         'SWA_best_0.32020.hdf5'],
     ]
 
     # making answer

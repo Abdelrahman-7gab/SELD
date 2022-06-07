@@ -7,7 +7,7 @@ from multiprocessing import cpu_count
 from tqdm import tqdm
 import tensorflow_io as tfio
 import joblib
-from random_eraser import eraser,mixup
+from extra_augmentations import eraser,mixup,clone
 
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
@@ -50,16 +50,19 @@ def data_loader(dataset,
     
     dataset = apply_ops(dataset, preprocessing)
     dataset = dataset.cache()
-    dataset = dataset.repeat(loop_time)
     dataset = apply_ops(dataset, sample_transforms)
+ 
 
     if(extras):
         print("extra augmentation is on")
-        cutoutDS = dataset.map(eraser, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
-        dataset = dataset.concatenate(cutoutDS)
-        dataset = dataset.shuffle(2400)
+        datasetClone = dataset.map(clone, num_parallel_calls=AUTOTUNE, deterministic=deterministic).shuffle(buffer_size=1200)
+        datasetZipped = tf.data.Dataset.zip((dataset, datasetClone))
+        mixUpDataset = datasetZipped.map(mixup, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
+        dataset = dataset.concatenate(mixUpDataset)
+        dataset = dataset.map(eraser, num_parallel_calls=AUTOTUNE, deterministic=deterministic)
 
-    
+ 
+    dataset = dataset.repeat(loop_time)
     dataset = dataset.batch(batch_size, drop_remainder=False)
     dataset = apply_ops(dataset, batch_transforms)
 
