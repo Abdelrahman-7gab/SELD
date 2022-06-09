@@ -34,8 +34,8 @@ process_str = 'dev'
 and I suggest extracting labels and features twice once for the development dataset as usual
 and once where you rename the metadata_eval to metadata_dev and the folder inside it to dev_test
 then use the extractor a second time. this way you'll be able to extract labels for the evaluation dataset as well.
-however do not use the lanbels in training the model and do not insert the foa_eval_label with the above folders. 
-you can use the labers later later to compute results for the evaluation dataset.)
+however do not use the labels in training the model and do not insert the foa_eval_label with the above folders. 
+you can use the labels later to compute results for the evaluation dataset.)
 
 3. create a new conda environment with the requirements.txt file
 
@@ -57,7 +57,7 @@ to
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 ```
 
-in the script you that you want to not use the GPU.
+in the file that you wish to not use the GPU.
 
 I added Mixup data augmentation however concatenated the resulted dataset to the original dataset doubling the dataset size and then
 applied cutout data augmentation with probability 50% to the dataset so that cutout will be applied to 50% of the dataset.
