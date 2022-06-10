@@ -3,3 +3,6 @@
 **/*.hdf5
 DCASE2020/
 config/
+!/Models_and_predictions/
+!/Models_and_predictions/_*
+!/Models_and_predictions/**/*.hdf5
