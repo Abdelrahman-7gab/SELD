@@ -75,6 +75,10 @@ the extra data augmentations resulted in 10% better scores on my machine on the 
 
 ![image](https://user-images.githubusercontent.com/63824808/172370656-e9d51e2b-9cc7-4d1e-a34f-f8356978a947.png)
 
+you can check out the trained models and their predictions: no modification, cutout only, and cutout + mixup here:
+[Models_and_predictions/](https://github.com/Abdelrahman-7gab/SELD/tree/main/Models_and_predictions)
+
+
 
 this change is apparent in data_loader.py in the next chunk of code:
         
